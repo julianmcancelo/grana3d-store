@@ -22,17 +22,32 @@ export function Meteors({ number = 20, className }: MeteorsProps) {
         setMeteorStyles(styles)
     }, [number])
 
+    // Grana 3D brand colors for meteors
+    const colors = ['#8B2F8B', '#00B4B4', '#F5A623']
+
     return (
         <div className={cn("absolute inset-0 overflow-hidden pointer-events-none", className)}>
-            {meteorStyles.map((style, idx) => (
-                <span
-                    key={`${id}-${idx}`}
-                    className="absolute w-0.5 h-0.5 rotate-[215deg] animate-meteor rounded-full bg-indigo-500 shadow-[0_0_0_1px_#ffffff10]"
-                    style={style}
-                >
-                    <span className="absolute top-1/2 -translate-y-1/2 w-[50px] h-[1px] bg-gradient-to-r from-indigo-500 to-transparent" />
-                </span>
-            ))}
+            {meteorStyles.map((style, idx) => {
+                const color = colors[idx % colors.length]
+                return (
+                    <span
+                        key={`${id}-${idx}`}
+                        className="absolute w-0.5 h-0.5 rotate-[215deg] animate-meteor rounded-full"
+                        style={{
+                            ...style,
+                            backgroundColor: color,
+                            boxShadow: `0 0 0 1px ${color}20`,
+                        }}
+                    >
+                        <span
+                            className="absolute top-1/2 -translate-y-1/2 w-[50px] h-[1px]"
+                            style={{
+                                background: `linear-gradient(to right, ${color}, transparent)`,
+                            }}
+                        />
+                    </span>
+                )
+            })}
         </div>
     )
 }

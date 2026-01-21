@@ -19,7 +19,7 @@ export function ShimmerButton({
     shimmerSize = "0.1em",
     shimmerDuration = "2s",
     borderRadius = "100px",
-    background = "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+    background = "linear-gradient(135deg, #8B2F8B 0%, #00B4B4 100%)",
     className,
     children,
     ...props
@@ -41,7 +41,7 @@ export function ShimmerButton({
                 "[background:var(--background)]",
                 "rounded-[var(--border-radius)]",
                 "transition-all duration-300",
-                "hover:scale-105 hover:shadow-xl hover:shadow-indigo-500/25",
+                "hover:scale-105 hover:shadow-xl hover:shadow-purple-500/25",
                 "active:scale-100",
                 className
             )}
