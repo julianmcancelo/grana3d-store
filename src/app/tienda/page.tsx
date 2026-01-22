@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import {
     ShoppingCart, Search, Menu, X, User, Heart, ChevronRight, ChevronDown,
-    Phone, Mail, MapPin, Truck, CreditCard, Shield, Clock, Star,
+    Phone, Mail, MapPin, Truck, CreditCard, Shield, Timer, Star,
     Printer, Package, Settings, Palette, Wrench, Zap, Award, Headphones,
     Facebook, Instagram, MessageCircle, ArrowRight
 } from "lucide-react"
@@ -176,8 +176,8 @@ function ProductCard({ product, index }: { product: any; index: number }) {
                     <div className="absolute top-3 left-3 flex flex-col gap-2">
                         {product.badge && (
                             <span className={`px-3 py-1 text-xs font-bold text-white rounded-full ${product.badge === "NUEVO" ? "bg-green-500" :
-                                    product.badge === "OFERTA" ? "bg-red-500" :
-                                        "bg-[#8B2F8B]"
+                                product.badge === "OFERTA" ? "bg-red-500" :
+                                    "bg-[#8B2F8B]"
                                 }`}>
                                 {product.badge}
                             </span>
@@ -305,8 +305,8 @@ export default function Tienda() {
                                     key={link.name}
                                     href={link.href}
                                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${link.highlight
-                                            ? "text-[#8B2F8B] bg-[#8B2F8B]/5 hover:bg-[#8B2F8B]/10"
-                                            : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                                        ? "text-[#8B2F8B] bg-[#8B2F8B]/5 hover:bg-[#8B2F8B]/10"
+                                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                                         }`}
                                 >
                                     {link.name}
