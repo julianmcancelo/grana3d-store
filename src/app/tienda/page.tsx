@@ -6,10 +6,11 @@ import {
     ShoppingCart, Search, Menu, X, User, Heart, ChevronRight, ChevronDown,
     Phone, Mail, MapPin, Truck, CreditCard, Shield, Timer, Star,
     Printer, Package, Settings, Palette, Wrench, Zap, Award, Headphones,
-    Facebook, Instagram, MessageCircle, ArrowRight
+    Facebook, Instagram, MessageCircle, ArrowRight, Sun, Moon
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTheme } from "next-themes"
 
 // ============================================
 // CONFIGURACIÓN
@@ -272,14 +273,24 @@ const sampleProducts: any[] = []
 export default function Tienda() {
     const [mobileMenu, setMobileMenu] = useState(false)
     const [searchOpen, setSearchOpen] = useState(false)
+    const [mounted, setMounted] = useState(false)
+    const { theme, setTheme } = useTheme()
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
+    const toggleTheme = () => {
+        setTheme(theme === 'dark' ? 'light' : 'dark')
+    }
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors">
             {/* Countdown Banner */}
             <CountdownBanner />
 
             {/* Header */}
-            <header className="bg-white sticky top-0 z-50 shadow-sm">
+            <header className="bg-white dark:bg-gray-900 sticky top-0 z-50 shadow-sm dark:shadow-gray-800/20">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="flex items-center justify-between h-16 lg:h-20">
                         {/* Mobile menu button */}
@@ -329,15 +340,25 @@ export default function Tienda() {
                         {/* Actions */}
                         <div className="flex items-center gap-2">
                             <button className="md:hidden p-2" onClick={() => setSearchOpen(!searchOpen)}>
-                                <Search className="w-5 h-5 text-gray-600" />
+                                <Search className="w-5 h-5 text-gray-600 dark:text-gray-300" />
                             </button>
-                            <Link href="#" className="hidden sm:flex p-2 text-gray-600 hover:text-[#8B2F8B] transition-colors">
+                            {/* Theme Toggle */}
+                            {mounted && (
+                                <button
+                                    onClick={toggleTheme}
+                                    className="p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B2F8B] dark:hover:text-[#00B4B4] transition-colors"
+                                    aria-label="Toggle theme"
+                                >
+                                    {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                                </button>
+                            )}
+                            <Link href="#" className="hidden sm:flex p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B2F8B] transition-colors">
                                 <User className="w-5 h-5" />
                             </Link>
-                            <Link href="#" className="hidden sm:flex p-2 text-gray-600 hover:text-[#8B2F8B] transition-colors">
+                            <Link href="#" className="hidden sm:flex p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B2F8B] transition-colors">
                                 <Heart className="w-5 h-5" />
                             </Link>
-                            <Link href="#" className="relative p-2 text-gray-600 hover:text-[#8B2F8B] transition-colors">
+                            <Link href="#" className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B2F8B] transition-colors">
                                 <ShoppingCart className="w-5 h-5" />
                                 <span className="absolute top-0 right-0 w-5 h-5 bg-[#8B2F8B] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                                     0
