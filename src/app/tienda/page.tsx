@@ -3,9 +3,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import {
-    ShoppingCart, Search, Menu, X, User, Heart, ChevronRight, ChevronDown,
-    Phone, Mail, MapPin, Truck, CreditCard, Shield, Timer, Star,
-    Printer, Package, Settings, Palette, Wrench, Zap, Award, Headphones,
+    ShoppingCart, Search, Menu, X, User, Heart, ChevronRight,
+    Phone, Mail, MapPin, Truck, CreditCard, Shield, Star,
+    Printer, Package, Settings, Palette, Zap, Award, Headphones,
     Facebook, Instagram, MessageCircle, ArrowRight, Sun, Moon
 } from "lucide-react"
 import { useState, useEffect } from "react"
@@ -28,11 +28,6 @@ const CONFIG = {
     social: {
         facebook: "#",
         instagram: "#"
-    },
-    colors: {
-        primary: "#8B2F8B",    // Purple
-        secondary: "#00B4B4",  // Cyan
-        accent: "#F5A623",     // Orange
     }
 }
 
@@ -45,38 +40,10 @@ const navLinks = [
 ]
 
 const categories = [
-    {
-        name: "Filamentos",
-        icon: Palette,
-        href: "#",
-        description: "PLA, PETG, ABS, TPU",
-        color: "from-purple-500 to-purple-600",
-        items: 45
-    },
-    {
-        name: "Impresoras 3D",
-        icon: Printer,
-        href: "#",
-        description: "FDM y Resina",
-        color: "from-cyan-500 to-cyan-600",
-        items: 12
-    },
-    {
-        name: "Repuestos",
-        icon: Settings,
-        href: "#",
-        description: "Boquillas, motores, correas",
-        color: "from-orange-500 to-orange-600",
-        items: 38
-    },
-    {
-        name: "Accesorios",
-        icon: Package,
-        href: "#",
-        description: "Herramientas y más",
-        color: "from-pink-500 to-pink-600",
-        items: 24
-    },
+    { name: "Filamentos", icon: Palette, href: "#", description: "PLA, PETG, ABS, TPU", color: "from-purple-500 to-purple-600", items: 45 },
+    { name: "Impresoras 3D", icon: Printer, href: "#", description: "FDM y Resina", color: "from-cyan-500 to-cyan-600", items: 12 },
+    { name: "Repuestos", icon: Settings, href: "#", description: "Boquillas, motores, correas", color: "from-orange-500 to-orange-600", items: 38 },
+    { name: "Accesorios", icon: Package, href: "#", description: "Herramientas y más", color: "from-pink-500 to-pink-600", items: 24 },
 ]
 
 const features = [
@@ -163,45 +130,24 @@ function ProductCard({ product, index }: { product: any; index: number }) {
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <Link href={`/producto/${product.id}`} className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100">
-                <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+            <Link href={`/producto/${product.id}`} className="group block bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-700 dark:to-gray-800 overflow-hidden">
                     {product.image ? (
                         <Image src={product.image} alt={product.name} fill className="object-cover group-hover:scale-110 transition-transform duration-500" />
                     ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
-                            <Package className="w-16 h-16 text-gray-300" />
+                            <Package className="w-16 h-16 text-gray-300 dark:text-gray-600" />
                         </div>
                     )}
 
-                    {/* Badges */}
-                    <div className="absolute top-3 left-3 flex flex-col gap-2">
-                        {product.badge && (
-                            <span className={`px-3 py-1 text-xs font-bold text-white rounded-full ${product.badge === "NUEVO" ? "bg-green-500" :
-                                product.badge === "OFERTA" ? "bg-red-500" :
-                                    "bg-[#8B2F8B]"
-                                }`}>
-                                {product.badge}
-                            </span>
-                        )}
-                        {product.discount && (
-                            <span className="px-3 py-1 text-xs font-bold bg-[#F5A623] text-white rounded-full">
-                                -{product.discount}%
-                            </span>
-                        )}
-                    </div>
+                    {product.badge && (
+                        <span className={`absolute top-3 left-3 px-3 py-1 text-xs font-bold text-white rounded-full ${product.badge === "NUEVO" ? "bg-green-500" :
+                                product.badge === "OFERTA" ? "bg-red-500" : "bg-[#8B2F8B]"
+                            }`}>
+                            {product.badge}
+                        </span>
+                    )}
 
-                    {/* Quick actions */}
-                    <motion.div
-                        className="absolute top-3 right-3 flex flex-col gap-2"
-                        initial={{ opacity: 0, x: 10 }}
-                        animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : 10 }}
-                    >
-                        <button className="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:bg-[#8B2F8B] hover:text-white transition-colors">
-                            <Heart className="w-5 h-5" />
-                        </button>
-                    </motion.div>
-
-                    {/* Add to cart */}
                     <motion.button
                         className="absolute bottom-3 left-3 right-3 py-3 bg-[#8B2F8B] text-white font-medium rounded-xl flex items-center justify-center gap-2 hover:bg-[#7A2879] transition-colors"
                         initial={{ opacity: 0, y: 10 }}
@@ -216,21 +162,21 @@ function ProductCard({ product, index }: { product: any; index: number }) {
                     <span className="text-xs text-[#00B4B4] font-medium uppercase tracking-wide">
                         {product.category}
                     </span>
-                    <h3 className="font-semibold text-gray-900 mt-1 line-clamp-2 group-hover:text-[#8B2F8B] transition-colors">
+                    <h3 className="font-semibold text-gray-900 dark:text-white mt-1 line-clamp-2 group-hover:text-[#8B2F8B] transition-colors">
                         {product.name}
                     </h3>
 
                     {product.rating && (
                         <div className="flex items-center gap-1 mt-2">
                             {[...Array(5)].map((_, i) => (
-                                <Star key={i} className={`w-3.5 h-3.5 ${i < product.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300"}`} />
+                                <Star key={i} className={`w-3.5 h-3.5 ${i < product.rating ? "text-yellow-400 fill-yellow-400" : "text-gray-300 dark:text-gray-600"}`} />
                             ))}
-                            <span className="text-xs text-gray-500 ml-1">({product.reviews})</span>
+                            <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">({product.reviews})</span>
                         </div>
                     )}
 
                     <div className="mt-3 flex items-baseline gap-2">
-                        <span className="text-xl font-bold text-gray-900">
+                        <span className="text-xl font-bold text-gray-900 dark:text-white">
                             ${product.price?.toLocaleString("es-AR")}
                         </span>
                         {product.originalPrice && (
@@ -255,15 +201,14 @@ function EmptyProducts() {
             <div className="w-24 h-24 bg-gradient-to-br from-[#8B2F8B]/10 to-[#00B4B4]/10 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Package className="w-12 h-12 text-[#8B2F8B]" />
             </div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Próximamente</h3>
-            <p className="text-gray-500 max-w-sm mx-auto">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">Próximamente</h3>
+            <p className="text-gray-500 dark:text-gray-400 max-w-sm mx-auto">
                 Estamos preparando productos increíbles para vos. ¡Volvé pronto!
             </p>
         </motion.div>
     )
 }
 
-// Productos de ejemplo (vacíos por defecto)
 const sampleProducts: any[] = []
 
 // ============================================
@@ -272,30 +217,25 @@ const sampleProducts: any[] = []
 
 export default function Tienda() {
     const [mobileMenu, setMobileMenu] = useState(false)
-    const [searchOpen, setSearchOpen] = useState(false)
     const [mounted, setMounted] = useState(false)
-    const { theme, setTheme } = useTheme()
+    const { theme, setTheme, resolvedTheme } = useTheme()
 
     useEffect(() => {
         setMounted(true)
     }, [])
 
-    const toggleTheme = () => {
-        setTheme(theme === 'dark' ? 'light' : 'dark')
-    }
-
     return (
-        <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors">
+        <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
             {/* Countdown Banner */}
             <CountdownBanner />
 
             {/* Header */}
-            <header className="bg-white dark:bg-gray-900 sticky top-0 z-50 shadow-sm dark:shadow-gray-800/20">
+            <header className="bg-white dark:bg-gray-900 sticky top-0 z-50 shadow-sm dark:shadow-gray-800/30 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="flex items-center justify-between h-16 lg:h-20">
                         {/* Mobile menu button */}
                         <button className="lg:hidden p-2 -ml-2" onClick={() => setMobileMenu(!mobileMenu)}>
-                            {mobileMenu ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                            {mobileMenu ? <X className="w-6 h-6 text-gray-900 dark:text-white" /> : <Menu className="w-6 h-6 text-gray-900 dark:text-white" />}
                         </button>
 
                         {/* Logo */}
@@ -305,7 +245,7 @@ export default function Tienda() {
                             </div>
                             <span className="text-xl font-bold tracking-tight hidden sm:block">
                                 <span className="text-[#8B2F8B]">Grana</span>
-                                <span className="text-gray-900">3D</span>
+                                <span className="text-gray-900 dark:text-white">3D</span>
                             </span>
                         </Link>
 
@@ -316,8 +256,8 @@ export default function Tienda() {
                                     key={link.name}
                                     href={link.href}
                                     className={`px-4 py-2 rounded-lg font-medium transition-colors ${link.highlight
-                                        ? "text-[#8B2F8B] bg-[#8B2F8B]/5 hover:bg-[#8B2F8B]/10"
-                                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                                            ? "text-[#8B2F8B] bg-[#8B2F8B]/5 hover:bg-[#8B2F8B]/10"
+                                            : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
                                         }`}
                                 >
                                     {link.name}
@@ -331,36 +271,37 @@ export default function Tienda() {
                                 <input
                                     type="text"
                                     placeholder="Buscar productos..."
-                                    className="w-full px-4 py-2.5 pl-11 bg-gray-100 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#8B2F8B]/20 focus:bg-white transition-all"
+                                    className="w-full px-4 py-2.5 pl-11 bg-gray-100 dark:bg-gray-800 border-0 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#8B2F8B]/20 dark:focus:ring-[#00B4B4]/30 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 transition-all"
                                 />
                                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                             </div>
                         </div>
 
                         {/* Actions */}
-                        <div className="flex items-center gap-2">
-                            <button className="md:hidden p-2" onClick={() => setSearchOpen(!searchOpen)}>
-                                <Search className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-                            </button>
+                        <div className="flex items-center gap-1">
                             {/* Theme Toggle */}
                             {mounted && (
                                 <button
-                                    onClick={toggleTheme}
-                                    className="p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B2F8B] dark:hover:text-[#00B4B4] transition-colors"
+                                    onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+                                    className="p-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                                     aria-label="Toggle theme"
                                 >
-                                    {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                                    {resolvedTheme === 'dark' ? (
+                                        <Sun className="w-5 h-5" />
+                                    ) : (
+                                        <Moon className="w-5 h-5" />
+                                    )}
                                 </button>
                             )}
-                            <Link href="#" className="hidden sm:flex p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B2F8B] transition-colors">
+                            <Link href="#" className="hidden sm:flex p-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                                 <User className="w-5 h-5" />
                             </Link>
-                            <Link href="#" className="hidden sm:flex p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B2F8B] transition-colors">
+                            <Link href="#" className="hidden sm:flex p-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                                 <Heart className="w-5 h-5" />
                             </Link>
-                            <Link href="#" className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-[#8B2F8B] transition-colors">
+                            <Link href="#" className="relative p-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                                 <ShoppingCart className="w-5 h-5" />
-                                <span className="absolute top-0 right-0 w-5 h-5 bg-[#8B2F8B] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                                <span className="absolute top-1 right-1 w-4 h-4 bg-[#8B2F8B] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                                     0
                                 </span>
                             </Link>
@@ -375,14 +316,14 @@ export default function Tienda() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="lg:hidden border-t"
+                            className="lg:hidden border-t border-gray-100 dark:border-gray-800"
                         >
-                            <nav className="px-4 py-4 space-y-1">
+                            <nav className="px-4 py-4 space-y-1 bg-white dark:bg-gray-900">
                                 {navLinks.map((link) => (
                                     <Link
                                         key={link.name}
                                         href={link.href}
-                                        className="block px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-50"
+                                        className="block px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                                         onClick={() => setMobileMenu(false)}
                                     >
                                         {link.name}
@@ -396,7 +337,6 @@ export default function Tienda() {
 
             {/* Hero Banner */}
             <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
-                {/* Background pattern */}
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute inset-0" style={{
                         backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
@@ -404,7 +344,6 @@ export default function Tienda() {
                     }} />
                 </div>
 
-                {/* Gradient orbs */}
                 <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#8B2F8B]/30 rounded-full blur-3xl" />
                 <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#00B4B4]/20 rounded-full blur-3xl" />
 
@@ -457,7 +396,7 @@ export default function Tienda() {
             </section>
 
             {/* Features */}
-            <section className="py-8 border-b">
+            <section className="py-8 border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950 transition-colors">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
                         {features.map((f, i) => (
@@ -469,12 +408,12 @@ export default function Tienda() {
                                 transition={{ delay: i * 0.1 }}
                                 className="flex items-center gap-4 p-4"
                             >
-                                <div className="w-12 h-12 bg-gradient-to-br from-[#8B2F8B]/10 to-[#00B4B4]/10 rounded-xl flex items-center justify-center shrink-0">
+                                <div className="w-12 h-12 bg-gradient-to-br from-[#8B2F8B]/10 to-[#00B4B4]/10 dark:from-[#8B2F8B]/20 dark:to-[#00B4B4]/20 rounded-xl flex items-center justify-center shrink-0">
                                     <f.icon className="w-6 h-6 text-[#8B2F8B]" />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold text-gray-900">{f.title}</h4>
-                                    <p className="text-sm text-gray-500">{f.desc}</p>
+                                    <h4 className="font-semibold text-gray-900 dark:text-white">{f.title}</h4>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">{f.desc}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -483,7 +422,7 @@ export default function Tienda() {
             </section>
 
             {/* Categories */}
-            <section className="py-12 lg:py-16">
+            <section className="py-12 lg:py-16 bg-white dark:bg-gray-950 transition-colors">
                 <div className="max-w-7xl mx-auto px-4">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -491,8 +430,8 @@ export default function Tienda() {
                         viewport={{ once: true }}
                         className="text-center mb-10"
                     >
-                        <h2 className="text-3xl font-bold text-gray-900 mb-3">Categorías</h2>
-                        <p className="text-gray-500">Explorá nuestra selección de productos</p>
+                        <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">Categorías</h2>
+                        <p className="text-gray-500 dark:text-gray-400">Explorá nuestra selección de productos</p>
                     </motion.div>
 
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -506,13 +445,13 @@ export default function Tienda() {
                             >
                                 <Link
                                     href={cat.href}
-                                    className="group block p-6 bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all"
+                                    className="group block p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-gray-200 dark:hover:border-gray-600 hover:shadow-lg dark:hover:shadow-gray-900/50 transition-all"
                                 >
                                     <div className={`w-14 h-14 bg-gradient-to-br ${cat.color} rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                                         <cat.icon className="w-7 h-7 text-white" />
                                     </div>
-                                    <h3 className="font-bold text-gray-900 mb-1">{cat.name}</h3>
-                                    <p className="text-sm text-gray-500 mb-2">{cat.description}</p>
+                                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">{cat.name}</h3>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{cat.description}</p>
                                     <span className="text-xs text-[#8B2F8B] font-medium">{cat.items} productos</span>
                                 </Link>
                             </motion.div>
@@ -522,12 +461,12 @@ export default function Tienda() {
             </section>
 
             {/* Products */}
-            <section id="productos" className="py-12 lg:py-16 bg-gray-50">
+            <section id="productos" className="py-12 lg:py-16 bg-gray-50 dark:bg-gray-900 transition-colors">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="flex items-center justify-between mb-10">
                         <div>
-                            <h2 className="text-3xl font-bold text-gray-900 mb-2">Productos Destacados</h2>
-                            <p className="text-gray-500">Los favoritos de nuestros clientes</p>
+                            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Productos Destacados</h2>
+                            <p className="text-gray-500 dark:text-gray-400">Los favoritos de nuestros clientes</p>
                         </div>
                         <Link href="#" className="hidden sm:flex items-center gap-2 text-[#8B2F8B] font-medium hover:underline">
                             Ver todos <ChevronRight className="w-4 h-4" />
@@ -545,7 +484,7 @@ export default function Tienda() {
             </section>
 
             {/* CTA Banner */}
-            <section className="py-16">
+            <section className="py-16 bg-white dark:bg-gray-950 transition-colors">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="relative overflow-hidden bg-gradient-to-r from-[#8B2F8B] to-[#00B4B4] rounded-3xl p-8 lg:p-12">
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
@@ -576,7 +515,7 @@ export default function Tienda() {
             </section>
 
             {/* Footer */}
-            <footer className="bg-gray-900 text-white py-12 lg:py-16">
+            <footer className="bg-gray-900 dark:bg-black text-white py-12 lg:py-16 transition-colors">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                         <div className="col-span-2 lg:col-span-1">
